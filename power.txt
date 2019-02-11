@@ -1,0 +1,30 @@
+ll power(ll a,ll b){
+  if(b==0){
+    return 1;
+  }
+  ll ans = power(a,b/2);
+  ans*=ans;
+  ans%=mod;
+  if(b%2){
+    ans*=a;
+    
+  }
+  ans%=mod;
+  return ans;
+}
+///////////////////////////////////////////////////
+
+
+ll power2[M];
+ll power3[M];
+
+// main
+ power2[0] =power3[0]= 1;
+    f(i,1,M){
+        power2[i] = power2[i-1]*2;
+        power3[i] = power3[i-1]*3;
+        power2[i]%=mod;
+        power3[i]%=mod;
+
+    
+    }
