@@ -1,0 +1,39 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define M 1000000007
+#define pii pair<ll,ll>
+#define fi first
+#define se second
+#define debug(x) cout<<" :"<<x<<"\n";
+#define debug2(x,y) cout<<#x<<" :"<<x<<"\t"<<#y<<": "<<y<<"\n";
+#define f(i,x,y) for(ll i=x;i<y;i++)
+#define boost ios::sync_with_stdio(0);cin.tie(0);
+#define pq priority_queue
+ll n,m;
+vector<ll>adj[100005];
+int visited[100005];
+void dfs(ll i){
+
+    visited[i]=1;
+
+    for(auto it : adj[i]){
+        if(!visited[it]){
+            dfs(it);
+        }
+    }
+    return ;
+}
+int main(){
+    boost;
+    cin>>n>>m;
+    ll a,b;
+    f(i,0,m){
+        cin>>a>>b;
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+    }
+
+    return 0;
+}
