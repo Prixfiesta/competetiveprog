@@ -1,0 +1,87 @@
+ll segtr[400005];
+ll lazy[400005];
+void build(ll node,ll lo,ll hi)
+{
+    if(lo==hi){
+      segtr[node] = a[lo];
+      return;
+    }
+    ll mid = lo+hi;
+    mid/=2;
+    build(node*2,lo,mid);
+    build(node*2+1,mid+1,hi);
+    segtr[node] = min(segtr[node*2],segtr[node*2+1]);
+}
+
+
+
+
+
+
+
+void update(ll node,ll x,ll y,ll segst,ll segen,ll val){
+
+if(lazy[node]!=0){
+      
+        segtr[node]+=lazy[node];
+        if(segst!=segen){
+            lazy[2*node]+=lazy[node];
+            lazy[2*node+1]+=lazy[node];
+        }
+        lazy[node]=0;
+    }
+  if(segen<x||segst>y){
+    return ;
+  }
+  ll mid = segst+segen;
+  mid/=2;
+  if(segst==segen){
+      segtr[node] += val;
+      return ;
+  }
+
+  
+
+  if(segst>=x&&segen<=y){
+        segtr[node]+=val;    
+        
+            lazy[2*node]+=val;
+            lazy[2*node+1]+=val;
+        
+        return;
+    }
+  
+  
+    update(node*2,x,y,segst,mid,val);
+    update(node*2+1,x,y,mid+1,segen,val);
+    segtr[node] = min(segtr[node*2],segtr[node*2+1]);
+
+
+  return ;
+
+}
+// query for lo to hi in segst to segen
+ll query(ll node,ll lo,ll hi,ll segst,ll segen){
+
+if(lazy[node]!=0){
+        
+        segtr[node]+=lazy[node];
+        if(segst!=segen){
+            lazy[2*node]+=lazy[node];
+            lazy[2*node+1]+=lazy[node];
+        }
+        lazy[node]=0;
+    }
+if(segst>hi||segen<lo){
+     return oo;
+ }
+ if(segst>=lo&&segen<=hi){
+     return segtr[node];
+ }
+
+  ll mid = segst+segen;
+  mid/=2;
+ return min( query(node*2,lo,hi,segst,mid),query(node*2+1,lo,hi,mid+1,segen));
+  
+
+}
