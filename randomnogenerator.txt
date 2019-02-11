@@ -1,0 +1,7 @@
+// 64-bit engine generator
+mt19937_64 rng(time(0));
+//[1,n]
+uniform_int_distribution<int> unii(1, n);
+
+
+// cout<<unii(rng)
