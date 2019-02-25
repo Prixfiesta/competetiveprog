@@ -3,6 +3,8 @@ ll lazy[400005];
 void build(ll node,ll lo,ll hi)
 {
     if(lo==hi){
+    // a is 1 indexed
+
       segtr[node] = a[lo];
       return;
     }
