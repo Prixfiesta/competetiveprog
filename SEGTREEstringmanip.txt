@@ -1,0 +1,142 @@
+// for questions involving updates have counting sort or other o(N=26) approach
+
+///////////////////////////////////////////////////////////////////////////////
+
+ll seg[27][4*M];
+ll lazy[27][4*M];
+
+///////////////////////////////////
+ aux array to perform updates
+ll freq[27]; 
+///////////////////////////////////////////////////////////////////////////
+
+// initialising segtree with tree
+void buildall(string s){
+  f(i,0,s.size()){
+    update(s[i]-'a'+1,1,i+1,i+1,1,n,1);
+  }
+}
+
+
+/////////////////////////////////////////////////////////////////////////
+
+
+void update(ll tno,ll node,ll q1,ll q2,ll segst,ll segen,ll val){
+    if(q2<q1){
+        return ;
+    }
+  if(lazy[tno][node]!=-1){
+      seg[tno][node] = lazy[tno][node]*(segen-segst+1);
+      if(segst!=segen){
+        lazy[tno][node*2] = lazy[tno][node];
+        lazy[tno][node*2+1] = lazy[tno][node];
+
+      }
+      lazy[tno][node] = -1;
+  }
+
+  if(q1<=segst&&segen<=q2){
+    seg[tno][node] = val*(segen-segst+1);
+    if(segst!=segen){
+      lazy[tno][node*2] = val;
+      lazy[tno][node*2+1] = val;
+    }
+    return ;
+  }
+  if(q1>segen||q2<segst){
+    return ;
+  }
+  ll mid = segst+segen;
+  mid/=2;
+  update(tno,node*2,q1,q2,segst,mid,val);
+  update(tno,node*2+1,q1,q2,mid+1,segen,val);
+  seg[tno][node] = seg[tno][node*2] + seg[tno][node*2+1];
+}
+
+///////////////////////////////////////////////////////////
+
+// get returns frequncy over a range
+
+ll get(ll tno,ll node,ll q1,ll q2,ll segst,ll segen){
+
+  if(lazy[tno][node]!=-1){
+    seg[tno][node] = lazy[tno][node]*(segen-segst+1);
+    if(segst!=segen){
+      lazy[tno][node*2] = lazy[tno][node];
+      lazy[tno][node*2+1] = lazy[tno][node];
+    }
+    lazy[tno][node] = -1;
+  }
+  if(q1<=segst&&segen<=q2){
+
+    return seg[tno][node];
+  }
+  if(q2<segst||q1>segen){
+    return 0;
+  }
+  ll mid = segst+segen;
+  mid /= 2;
+  return get(tno,node*2,q1,q2,segst,mid)+get(tno,node*2+1,q1,q2,mid+1,segen);
+}
+
+
+////////////////////////////////////////////////////////////////
+
+
+void display(ll tno,ll node,ll l,ll r){
+    if(lazy[tno][node]!=-1){
+    seg[tno][node] = lazy[tno][node]*(r-l+1);
+    if(r!=l){
+      lazy[tno][node*2] = lazy[tno][node];
+      lazy[tno][node*2+1] = lazy[tno][node];
+    }
+    lazy[tno][node] = -1;
+  }
+  cout<<seg[tno][node]<<" "<<node<<" "<<l<<' '<<r<<'\n';
+  if(l==r){
+    return ;
+  }
+  ll mid = l+r;
+  mid/=2;
+  display(tno,node*2,l,mid);
+  display(tno,node*2+1,mid+1,r);
+}
+
+
+///////////////////////////////////////////////////////////////
+//some query function{  
+
+
+f(t,1,27){
+  freq[t] = get(t,1,,,1,n);
+  // insert query values q1,q2
+  //(maybe update(t,1,,,1,n,0)) update range to 0
+  
+}
+
+// do some operation
+
+//}
+
+////////////////////////////////////////////////////////////
+
+//print result array
+void prin(){
+    ll st[100005]={0};
+
+    f(i,1,n+1){
+      f(j,1,27){
+        if(get(j,1,i,i,1,n)){
+          st[i] = j;
+        //   debug(st[i]);
+      // yeah this break is pretty important for time constraints
+          break;
+        }
+      }
+    }
+    f(i,1,n+1){
+      cout<<(char)(st[i]+'a'-1);
+    }
+}
+
+////////////////////////////////////////////
