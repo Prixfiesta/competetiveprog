@@ -1,3 +1,16 @@
+{
+/***************************************
+
+WARNING:
+
+using ll unnecessarily might lead to tle
+
+*******************************************/
+}
+
+
+
+
 // for questions involving updates have counting sort or other o(N=26) approach
 
 ///////////////////////////////////////////////////////////////////////////////
