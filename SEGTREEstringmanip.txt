@@ -18,12 +18,16 @@ using ll unnecessarily might lead to tle
 ll seg[27][4*M];
 ll lazy[27][4*M];
 
+//better idea:
+//we dont need 26 lazies (probably) though it has been used here
+
 ///////////////////////////////////
  aux array to perform updates
 ll freq[27]; 
 ///////////////////////////////////////////////////////////////////////////
 
 // initialising segtree with tree
+/
 void buildall(string s){
   f(i,0,s.size()){
     update(s[i]-'a'+1,1,i+1,i+1,1,n,1);
@@ -135,21 +139,40 @@ f(t,1,27){
 
 //print result array
 void prin(){
-    ll st[100005]={0};
+ 
 
     f(i,1,n+1){
       f(j,1,27){
         if(get(j,1,i,i,1,n)){
-          st[i] = j;
-        //   debug(st[i]);
-      // yeah this break is pretty important for time constraints
+         cout<<(char)(j+'a'-1);   
+              // yeah this break is pretty important for time constraints
           break;
         }
       }
     }
-    f(i,1,n+1){
-      cout<<(char)(st[i]+'a'-1);
-    }
 }
-
+// ANOTHER WAY IS TO RUN DFS WHILE LAZY PROPOGATION HAPPENS (so far never really required to use):
+void dfs(ll node, ll segst,ll segen){
+    f(tno,1,37){
+     if(lazy[tno][node]!=-1){
+      seg[tno][node] = lazy[tno][node]*(segen-segst+1);
+      if(r!=l){
+        lazy[tno][node*2] = lazy[tno][node];
+        lazy[tno][node*2+1] = lazy[tno][node];
+      }
+      lazy[tno][node] = -1;
+    } 
+  }
+  if(segst==segen){
+  		f(tno,1,27){
+			if(seg[tno][node]){
+			printf("%c",tno-'a'+1);
+				return ;
+			}
+		}
+  }
+  ll mid = (segst+segen)>>1;
+  dfs(node*2,segst,mid);
+  dfs(node*2+1,mid+1,segen);
+}
 ////////////////////////////////////////////
