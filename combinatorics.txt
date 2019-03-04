@@ -1,0 +1,38 @@
+//change size accordingly
+#define sz 100000
+
+
+ll power(ll a,ll b){
+  if(b==0){
+    return 1;
+  }
+  ll ans = power(a,b/2);
+  ans*=ans;
+  ans%=mod;
+  if(b%2){
+    ans*=a;
+    
+  }
+  ans%=mod;
+  return ans;
+}
+
+
+ll ncr[sz][sz]; 
+ll modinv[sz]; 
+
+//
+f(i,1,sz){
+    modinv[i] = power(i,mod-2);
+  }
+  
+  
+  f(i,0,sz){
+    ncr[i][0] =ncr[i][i]= 1;
+  }
+  f(i,1,sz){
+    f(j,1,i){
+      ncr[i][j] = (((ncr[i][j-1]*(i-j+1))%mod)*(modinv[j]))%mod;
+    }
+  }
+  
