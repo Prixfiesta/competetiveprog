@@ -3,6 +3,9 @@
 #include <ext/pb_ds/detail/standard_policies.hpp>
 using namespace __gnu_pbds;
 
+// int has been used
+
+
 typedef tree<
 int,
 null_type,
@@ -11,9 +14,18 @@ rb_tree_tag,
 tree_order_statistics_node_update>
 ordered_set;
 
-//if you want to use ordered multiset use less_equal although delete operation is not supported
 
 // ordered_set X;
 // X.insert(1);
 // cout<<*X.find_by_order(n)<<endl; n+1 th no
 // cout<<X.order_of_key(n) nos smaller than n
+
+
+//////MULTISET:
+typedef tree<
+int,
+null_type,
+less<pair<int,int>>,//element and id 
+rb_tree_tag,
+tree_order_statistics_node_update>
+ordered_set;
