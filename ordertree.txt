@@ -11,6 +11,8 @@ rb_tree_tag,
 tree_order_statistics_node_update>
 ordered_set;
 
+//if you want to use ordered multiset use less_equal although delete operation is not supported
+
 // ordered_set X;
 // X.insert(1);
 // cout<<*X.find_by_order(n)<<endl; n+1 th no
