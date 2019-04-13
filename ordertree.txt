@@ -3,13 +3,13 @@
 #include <ext/pb_ds/detail/standard_policies.hpp>
 using namespace __gnu_pbds;
 
-// int has been used
+
 
 
 typedef tree<
-int,
+ll,
 null_type,
-less<int>,
+less<ll>,
 rb_tree_tag,
 tree_order_statistics_node_update>
 ordered_set;
@@ -25,7 +25,7 @@ ordered_set;
 typedef tree<
 pii,
 null_type,
-less<pair<int,int>>,//element and id 
+less<pii>,//element and id 
 rb_tree_tag,
 tree_order_statistics_node_update>
 ordered_set;
