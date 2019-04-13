@@ -23,7 +23,7 @@ ordered_set;
 
 //////MULTISET:
 typedef tree<
-int,
+pii,
 null_type,
 less<pair<int,int>>,//element and id 
 rb_tree_tag,
